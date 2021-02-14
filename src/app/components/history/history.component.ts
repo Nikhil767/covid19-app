@@ -18,6 +18,11 @@ export class HistoryComponent {
   selectedList = 'Cases';
   selectList:string[] = ['Cases','Tests','Deaths'];
 
+  selectedMonth = { name:'Jan',index: 1};//new Date().getMonth().toString()};
+  selectMonths:{name:string,index:number}[]=[{name:'Jan',index:1},{name:'Feb',index:2},{name:'Mar',index:3},
+  {name:'Apr',index:4},{name:'May',index:5},{name:'Jun',index:6},{name:'Jul',index:7},{name:'Aug',index:8},
+  {name:'Sep',index:9},{name:'Oct',index:10}, {name:'Nov',index:11},{name:'Dec',index:12}];
+
   get countryName(): any { 
     return this._countryName;
   }
@@ -25,7 +30,8 @@ export class HistoryComponent {
   @Input()
   set countryName(currentValue: any) {
     this._countryName = currentValue;
-    this.setFromCache(this._countryName, this.date.substr(5,2));
+    this.mbarChartLabels=[];
+    this.setFromCache(this._countryName, this.selectedMonth.index.toString());//this.date.substr(5,2));
     // this.subscriptions.push(this.backendApi.getHistory(this._countryName, this.date).subscribe(data => {
     //   if (data?.response) {
     //     const totalCount = data.results;
@@ -35,7 +41,9 @@ export class HistoryComponent {
   }
 
   setFromCache(countryName: string, month: string = ''){  
+    month = month.length == 1 ? '0'+month : month;
     let existingData = localStorage.getItem(countryName);
+    this.mbarChartLabels = []
     if(!existingData){
       this.subscriptions.push(this.backendApi.getHistory(countryName).subscribe(x=> {
        if(x.response){
@@ -74,8 +82,7 @@ export class HistoryComponent {
       let caseData_critical = [];
       let caseData_active = [];
       let caseData_recovered = [];
-
-      this.mbarChartLabels=[];
+      
       for (let index = monthlyData.length -1; index >= 0; index--) {
         const element = monthlyData[index];
         // set x-axis
@@ -126,6 +133,13 @@ export class HistoryComponent {
 
   ngOnDestroy() {
     this.subscriptions.forEach(x=> x.unsubscribe());
+  }
+
+  selectMonth(event:INgxSelectOption[]){
+    if(event){
+      const month = event[0]?.data;
+      this.setFromCache(this._countryName, month.index.toString());
+      }
   }
 
   selectType(event:INgxSelectOption[]){
