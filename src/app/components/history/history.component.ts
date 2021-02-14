@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartType as ChartControl } from 'chart.js';
 import { BackendapiService } from 'src/app/services/backendapi.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { INgxSelectOption } from 'ngx-select-ex';
 import * as _ from 'lodash';
 import { CountryWiseData } from 'src/app/models/countrydata';
@@ -11,8 +11,7 @@ import { CountryWiseData } from 'src/app/models/countrydata';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
-export class HistoryComponent {
-
+export class HistoryComponent {  
   private _countryName: string = '';
   private subscriptions : Subscription[] = [];
 
@@ -46,7 +45,7 @@ export class HistoryComponent {
             .value();
 
         localStorage.setItem(countryName, JSON.stringify(groupedData));
-        let monthlyData = groupedData.filter(x=> x.date.substr(5,2) == month).flatMap(y => y.data); 
+        let monthlyData = groupedData.filter(x=> x.date.substr(5,2) == month).flatMap((y:{date:string, data:CountryWiseData[]}) => y.data); 
         //console.log(monthlyData); 
         this.setBarChartData(monthlyData);      
        }
@@ -54,7 +53,7 @@ export class HistoryComponent {
     }
     else if(existingData){
       const cachedData : {date:string, data:CountryWiseData[]}[] = JSON.parse(existingData?.toString());
-      let monthlyData = cachedData.filter(x=> x.date.substr(5,2) == month).flatMap(y => y.data);
+      let monthlyData = cachedData.filter(x=> x.date.substr(5,2) == month).flatMap((y:{date:string, data:CountryWiseData[]}) => y.data);
       //console.log(monthlyData);
       this.setBarChartData(monthlyData);      
     }    
@@ -76,6 +75,7 @@ export class HistoryComponent {
       let caseData_active = [];
       let caseData_recovered = [];
 
+      this.mbarChartLabels=[];
       for (let index = monthlyData.length -1; index >= 0; index--) {
         const element = monthlyData[index];
         // set x-axis
@@ -116,6 +116,7 @@ export class HistoryComponent {
         {data: caseData_active, label: 'Active'},
         {data: caseData_recovered, label: 'Recovered'}
       ];
+      this.barChartData = this.barChartCaseData;
     }
   }
 
@@ -163,20 +164,20 @@ export class HistoryComponent {
         pointHoverBorderColor: 'rgba(77,20,96,1)'
       },
       { 
-        backgroundColor: 'rgba(77,20,96,0.3)',
-        borderColor: 'rgba(77,20,96,1)',
-        pointBackgroundColor: 'rgba(77,20,96,1)',
+        backgroundColor: 'rgba(217, 83, 79,0.4)',
+        borderColor: 'rgba(217, 83, 79,1)',
+        pointBackgroundColor: 'rgba(217, 83, 79,1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,20,96,1)'
+        pointHoverBorderColor: 'rgba(217, 83, 79,1)'
       },
       { 
-        backgroundColor: 'rgba(77,20,96,0.3)',
-        borderColor: 'rgba(77,20,96,1)',
-        pointBackgroundColor: 'rgba(77,20,96,1)',
+        backgroundColor: 'rgba(240, 173, 78,0.3)',
+        borderColor: 'rgba(240, 173, 78,1)',
+        pointBackgroundColor: 'rgba(240, 173, 78,1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,20,96,1)'
+        pointHoverBorderColor: 'rgba(240, 173, 78,1)'
       },
       { 
         backgroundColor: 'rgba(92, 184, 92,0.2)',

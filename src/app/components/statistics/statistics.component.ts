@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faCoffee, faViruses, faFlag,faCalendarAlt, faVial, faBookDead,faHospitalUser,faUsers } from '@fortawesome/free-solid-svg-icons';
 import { CountryWiseData } from 'src/app/models/countrydata';
 
