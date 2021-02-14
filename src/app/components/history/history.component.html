@@ -1,0 +1,28 @@
+<div style="display: block">
+    <ngx-select
+    [items]="selectList"
+    [showOptionNotFoundForEmptyItems]="true"
+    [allowClear]="false"
+    [(ngModel)]="selectedList"
+    (selectionChanges)="selectType($event)"
+  ></ngx-select>
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="mbarChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            ></canvas>
+
+            <!-- <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="mbarChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"
+            ></canvas> -->
+  </div>

@@ -1,0 +1,45 @@
+    <h1 style="animation-delay: 0ms;">
+        <fa-icon [icon]="faFlag" size="lg">
+        </fa-icon>  {{countryData.country}}</h1>
+    <h4><fa-icon [icon]="faUsers" size="sm"></fa-icon>   Population : {{countryData.population}}</h4>
+    <h5>Continent : {{countryData.continent}}</h5>
+    <h5 style="animation-delay: 250ms;">Last Updated on {{countryData.time | date: 'medium' }}
+        <fa-icon [icon]="faCalendarAlt" size="sm"></fa-icon>         
+    </h5>    
+    
+    <div class="row">
+    <div class="col-sm-4" *ngIf="countryData?.cases">
+      <div class="card text-white bg-dark mb-4">
+        <div class="card-body">
+          <h5 class="card-title"><fa-icon [icon]="faHospitalUser" size="lg"></fa-icon>   Cases</h5>
+          <p class="card-text">1M_pop : {{get1Mpop('Cases')}}</p>
+          <p class="card-text">Active : {{countryData?.cases?.active}}</p>
+          <p class="card-text">Critical : {{countryData?.cases?.critical}}</p>
+          <p class="card-text">New : {{countryData?.cases?.new}}</p>
+          <p class="card-text">Recovered : {{countryData?.cases?.recovered}}</p>
+          <p class="card-text">Total : {{countryData?.cases?.total}}</p>
+          <fa-icon [icon]="faViruses" size="6x" [pulse]="false" [styles]="{'stroke': 'aqua', 'color': 'aqua'}"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4" *ngIf="countryData?.tests">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><fa-icon [icon]="faVial" size="lg"></fa-icon>   Tests</h5>
+            <p class="card-text">1M_pop : {{get1Mpop('Tests')}}</p>
+            <p class="card-text">Total : {{countryData?.tests?.total}}</p>
+            <fa-icon [icon]="faViruses" size="6x" [pulse]="false" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
+          </div>
+        </div>
+    </div>
+    <div class="col-sm-4" *ngIf="countryData?.deaths">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><fa-icon [icon]="faBookDead" size="lg"></fa-icon>   Deaths</h5>
+            <p class="card-text">1M_pop : {{get1Mpop('Deaths')}}</p>
+            <p class="card-text">New : {{countryData?.deaths?.new}}</p>
+            <p class="card-text">Total : {{countryData?.deaths?.total}}</p>
+            <fa-icon [icon]="faViruses" size="6x" [pulse]="false" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+          </div>
+        </div>
+    </div>
