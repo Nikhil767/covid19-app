@@ -62,14 +62,6 @@ export class CountriesComponent {
   //#region country map
   myType :ChartType = ChartType.GeoChart;
   countryData:ValidExtraData[][] = [];
-  // countryData = [
-  //   ['Country', 'Popularity'],
-  //   ['London', 8136000],
-  //   ['New York', 8538000],
-  //   ['Paris', 2244000],
-  //   ['Berlin', 3470000],
-  //   ['Kairo', 19500000]
-  // ];
 
   countrychartOption : any = {
     displayMode: 'text'
